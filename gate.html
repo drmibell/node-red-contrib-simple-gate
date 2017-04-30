@@ -1,0 +1,109 @@
+<!--
+  Copyright 2017 M. I. Bell
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+
+<script type="text/x-red" data-template-name="gate">
+
+    <div class="form-row">    
+        <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
+        <input type="text" id="node-input-topic" placeholder="Topic">
+    </div>
+    
+    <!-- controlTopic --> 
+	<div class="form-row">
+		 <label for="node-input-controlTopic"> Control Topic</label>
+		 <input type="text" id="node-input-controlTopic" placeholder="control">
+	 </div>
+
+    <!-- defaultState --> 	
+	<div class="form-row">
+		 <label for="node-input-defaultState"> Default State</label>
+		 <input type="text" id="node-input-defaultState" placeholder="open">
+	 </div>
+	 
+	<br/>
+	<div>Commands (case insensitive):</div>
+	<br/>
+	
+	<!-- openCmd --> 
+	<div class="form-row">
+		 <label for="node-input-openCmd"> Open </label>
+		 <input type="text" id="node-input-openCmd" placeholder="open">
+	</div>
+	 
+	<!-- closeCmd --> 
+	<div class="form-row">
+		 <label for="node-input-closeCmd"> Close </label>
+		 <input type="text" id="node-input-closeCmd" placeholder="close">
+	</div>
+	 
+	<!-- toggleCmd --> 
+	<div class="form-row">
+		 <label for="node-input-toggleCmd"> Toggle </label>
+		 <input type="text" id="node-input-toggleCmd" placeholder="toggle">
+	</div>
+	 
+	<!-- defaultCmd --> 
+	<div class="form-row">
+		 <label for="node-input-defaultCmd"> Default </label>
+		 <input type="text" id="node-input-defaultCmd" placeholder="default">
+	</div>
+	 
+	<br/>
+	
+	<!-- Name -->  
+    <div class="form-row">
+        <label for="node-input-name"><i class="fa fa-tag"></i> Name </label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/javascript">
+    RED.nodes.registerType('gate',{
+        category: 'function',
+        color: '#f3b567',
+        defaults: {
+            name: {value:""},
+            controlTopic: {value:"control"},
+            defaultState: {value:"open"},
+            openCmd: {value:"open"},
+            closeCmd: {value:"close"},
+            toggleCmd: {value:"toggle"},
+            defaultCmd: {value:"default"}
+        },
+        inputs:1,
+        outputs:1,
+        icon: "arrow-in.png",
+        label: function() {
+            return this.name||"gate";
+        }
+    });
+</script>
+
+<script type="text/x-red" data-template-name="gate">
+    <div class="form-row">
+        <label for="node-input-name"><i class="icon-tag"></i> Name</label>
+        <input type="text" id="node-input-name" placeholder="Name">
+    </div>
+</script>
+
+<script type="text/x-red" data-help-name="gate">
+    <p>Transmits the input message when in the "open" state and blocks it when "closed". </p>
+    <p>Messages with the topic <code>Control Topic</code> are control message which set 
+    the state of the gate. Control messages can have values representing on, off, toggle,
+    and default. </p>
+    <p>When first deployed or after a default command, the gate is in the state defined
+    by <code>Default State</code>.<p>
+</script>
