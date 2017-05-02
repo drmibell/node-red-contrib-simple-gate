@@ -3,15 +3,15 @@
     "version"      : "0.0.1",
     "description"  : "A gate node for node-RED",
     "license"      : "Apache-2.0",
-    "author"       : "Michael.I. Bell"
-     "e-mail"       : "dr.m.i.bell@gmail.com"
+    "author"       : "Michael.I. Bell",
+    "e-mail"       : "dr.m.i.bell@gmail.com",
     "dependencies" : {},
     "keywords"     : [ ],
     "homepage"     : "https://github.com/drmibell/node-red-contrib-gate",
-    "repository	   : {
+    "repository"    : {
          "type"    : "git",
-         "url"     : "https://github.com/drmibell/node-red-contrib-gate.git",
-}
+         "url"     : "https://github.com/drmibell/node-red-contrib-gate.git"
+},
     "node-red"     : {
         "nodes": {
             "gate": "gate/gate.js"
