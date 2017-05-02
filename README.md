@@ -1,4 +1,4 @@
-# gate-node
+# node-red-contrib-gate
 A Node-RED node for controlling message flow.
 
 ## How it works
