@@ -30,13 +30,13 @@ module.exports = function(RED) {
 			var closedStatus = {fill:"red",shape:"dot"};
 			var state = context.get('state') || this.defaultState;
 			var status;
-			if (state == 'open') {
+			if (state === 'open') {
 			    status = openStatus;
 			} else {
 			    status = closedStatus;
 			}
 			node.status(status);
-			if (msg.topic.toLowerCase() == this.controlTopic) {
+			if (msg.topic.toLowerCase() === this.controlTopic) {
 				switch (msg.payload.toLowerCase()) {
 					case this.openCmd:
 						state = 'open';
@@ -47,7 +47,7 @@ module.exports = function(RED) {
 						status = closedStatus;
 						break;
 					case this.toggleCmd:
-						if (state == 'open') {
+						if (state === 'open') {
 							state = 'closed';
 							status = closedStatus;
 						} else {
@@ -57,7 +57,7 @@ module.exports = function(RED) {
 						break;
 					case this.defaultCmd:
 						state = this.defaultState;
-						if (state == 'open') {
+						if (state === 'open') {
 							status = openStatus;
 						} else {
 							status = closedStatus;
@@ -71,7 +71,7 @@ module.exports = function(RED) {
 				node.status(status);
 				node.send(null);
 			}
-			else if (state == 'open') {
+			else if (state === 'open') {
 					node.send(msg);
 				} else {
 					node.send(null);
