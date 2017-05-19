@@ -3,7 +3,7 @@ A Node-RED node for controlling message flow.
 
 ## Install
 
-Run the following command in your node-RED user directory (typically ~/.node-red`):
+Run the following command in your node-RED user directory (typically `~/.node-red`):
 
     npm install node-red-contrib-gate
 
