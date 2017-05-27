@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  **/
-
 module.exports = function(RED) {
     function GateNode(config) {
         RED.nodes.createNode(this,config);
@@ -26,7 +25,6 @@ module.exports = function(RED) {
         } else {
         	this.status (closedStatus);
         }
-        this.warn ('starting up v0.0.2.4')
         this.on('input', function(msg) {
             var context = this.context();
             this.controlTopic = config.controlTopic.toLowerCase();
