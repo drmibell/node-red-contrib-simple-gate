@@ -1,6 +1,6 @@
 {
-    "name"         : "gate",
-    "version"      : "0.0.1",
+    "name"         : "node-red-contrib-gate",
+    "version"      : "0.0.2",
     "description"  : "A gate node for node-RED",
     "license"      : "Apache-2.0",
     "author"       : "Michael.I. Bell",
