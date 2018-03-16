@@ -39,7 +39,7 @@ module.exports = function(RED) {
                 this.status (closedStatus);
             }
            // Change state
-            if (msg.topic.toLowerCase() === this.controlTopic) {
+            if (msg.topic !== undefined && msg.topic.toLowerCase() === this.controlTopic) {
                 switch (msg.payload.toLowerCase()) {
                     case this.openCmd:
                         state = 'open';
