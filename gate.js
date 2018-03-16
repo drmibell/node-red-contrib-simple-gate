@@ -21,7 +21,7 @@ module.exports = function(RED) {
         var closedStatus = {fill:"red",shape:"dot"};
         var state = this.defaultState;
         if (state === 'open') {
-        ....this.status (openStatus);
+            this.status (openStatus);
         } else {
             this.status (closedStatus);
         }
