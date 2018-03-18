@@ -17,8 +17,8 @@ module.exports = function(RED) {
     function GateNode(config) {
         RED.nodes.createNode(this,config);
         this.defaultState = config.defaultState.toLowerCase();
-        var openStatus = {fill:"green",shape:"dot"};
-        var closedStatus = {fill:"red",shape:"dot"};
+        var openStatus = {fill:"green",shape:"dot",text:"open"};
+        var closedStatus = {fill:'red',shape:'dot',text:'closed'};
         var state = this.defaultState;
         if (state === 'open') {
             this.status (openStatus);
