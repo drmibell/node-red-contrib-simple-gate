@@ -15,20 +15,17 @@
 -->
 
 <script type="text/x-red" data-template-name="gate">
-
-    <!-- Topic --> 
+<!-- Topic -->
     <div class="form-row">    
         <label for="node-input-topic"><i class="fa fa-tasks"></i> Topic</label>
         <input type="text" id="node-input-topic" placeholder="Topic">
     </div>
-    
-    <!-- controlTopic --> 
+<!-- controlTopic --> 
     <div class="form-row">
          <label for="node-input-controlTopic"> Control Topic</label>
          <input type="text" id="node-input-controlTopic" placeholder="control">
      </div>
-
-    <!-- defaultState -->   
+<!-- defaultState -->   
     <div class="form-row">
         <label for="node-input-func"> Default State</label>
         <select type="text" id="node-input-defaultState" style="width:25%;">
@@ -36,30 +33,27 @@
             <option value="closed"> closed</option>
         </select>
     </div>
-     
+    
     <br/>
     <div>Commands (case insensitive):</div>
     <br/>
     
-    <!-- openCmd --> 
+<!-- openCmd --> 
     <div class="form-row">
          <label for="node-input-openCmd"><i class="fa fa-circle-o"></i> Open</label>
          <input type="text" id="node-input-openCmd" placeholder="open">
     </div>
-     
-    <!-- closeCmd --> 
+<!-- closeCmd --> 
     <div class="form-row">
          <label for="node-input-closeCmd"><i class="fa fa-circle"></i> Close</label>
          <input type="text" id="node-input-closeCmd" placeholder="close">
     </div>
-     
-    <!-- toggleCmd --> 
+<!-- toggleCmd --> 
     <div class="form-row">
          <label for="node-input-toggleCmd"><i class="fa fa-arrows-v"></i> Toggle </label>
          <input type="text" id="node-input-toggleCmd" placeholder="toggle">
     </div>
-     
-    <!-- defaultCmd --> 
+<!-- defaultCmd --> 
     <div class="form-row">
          <label for="node-input-defaultCmd"><i class="fa fa-dot-circle-o"></i> Default</label>
          <input type="text" id="node-input-defaultCmd" placeholder="default">
@@ -92,6 +86,9 @@
         icon: "arrow-in.png",
         label: function() {
             return this.name||"gate";
+        },
+        labelStyle: function() {
+            return this.name?"node_label_italic":"";
         }
     });
 </script>
