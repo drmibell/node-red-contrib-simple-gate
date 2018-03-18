@@ -9,13 +9,14 @@ Run the following command in your node-RED user directory (typically `~/.node-re
 
 ## Usage
 
-The gate node will transmit the input message to its output when in the "open" state and block it when "closed." 
+The `gate` node will transmit the input message to its output when in the "open" state and block it when "closed." 
 
-Messages with the user-defined topic <code>Control Topic</code> (set when the node is deployed) are not passed through but are used to control the state of the gate.
+Messages with the user-defined topic `Control Topic` (set when the node is deployed) are not passed through but are used to control the state of the gate.
 
-When first deployed or after a default command, the gate is in the user-selected state defined by <code>Default State</code>.
+Control messages can have values representing commands for `open`, `close`, `toggle`, and `default`. The (case-insensitive) strings representing these commands are set by the user when the node is deployed. If a control message is received but not recognized, there is no output or change of state, and the node reports an error.
 
-Control messages can have values representing commands for open, close, toggle, and default. The (case-insensitive) strings representing these commands are be set by the user when the node is deployed. If a control message is received but not recognized, there is no output or change of state, and the node reports an error.
+When first deployed or after a `default` command, the gate is in the user-selected state defined by `Default State`.
+
 
 ## Node status
-The state of the gate is indicated by a status object (dot), with green = open, red = closed.
+The state of the gate is indicated by a status object (dot) and text, either green/'open' or red/'closed'.
