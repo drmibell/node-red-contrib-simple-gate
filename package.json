@@ -14,7 +14,7 @@
 },
     "node-red"     : {
         "nodes": {
-            "gate": "node-red-contrib-gate/gate.js"
+            "gate": "gate.js"
         }
     }
 }
