@@ -33,11 +33,6 @@ module.exports = function(RED) {
             this.toggleCmd = config.toggleCmd.toLowerCase();
             this.defaultCmd = config.defaultCmd.toLowerCase();
             var state = context.get('state') || this.defaultState;
-            if (state === 'open') {
-                this.status (openStatus);
-            } else {
-                this.status (closedStatus);
-            }
            // Change state
             if (msg.topic !== undefined && msg.topic.toLowerCase() === this.controlTopic) {
                 switch (msg.payload.toLowerCase()) {
