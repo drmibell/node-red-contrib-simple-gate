@@ -16,61 +16,67 @@
 module.exports = function(RED) {
     function GateNode(config) {
         RED.nodes.createNode(this,config);
-        this.defaultState = config.defaultState.toLowerCase();
         var openStatus = {fill:"green",shape:"dot",text:"open"};
         var closedStatus = {fill:'red',shape:'dot',text:'closed'};
-        var state = this.defaultState;
+        // Copy configuration items
+        this.controlTopic = config.controlTopic.toLowerCase();
+        this.openCmd = config.openCmd.toLowerCase();
+        this.closeCmd = config.closeCmd.toLowerCase();
+        this.toggleCmd = config.toggleCmd.toLowerCase();
+        this.defaultCmd = config.defaultCmd.toLowerCase();
+        this.defaultState = config.defaultState.toLowerCase();
+        // Save "this" object
+        var node = this
+        // Display gate status
+        var state = node.defaultState;
         if (state === 'open') {
-            this.status (openStatus);
+            node.status (openStatus);
         } else {
-            this.status (closedStatus);
+            node.status (closedStatus);
         }
-        this.on('input', function(msg) {
-            var context = this.context();
-            this.controlTopic = config.controlTopic.toLowerCase();
-            this.openCmd = config.openCmd.toLowerCase();
-            this.closeCmd = config.closeCmd.toLowerCase();
-            this.toggleCmd = config.toggleCmd.toLowerCase();
-            this.defaultCmd = config.defaultCmd.toLowerCase();
-            var state = context.get('state') || this.defaultState;
+        // Process inputs
+        node.on('input', function(msg) {
+            var context = node.context();
+            // Copy configuration items (moved)
+            var state = context.get('state') || node.defaultState;
            // Change state
-            if (msg.topic !== undefined && msg.topic.toLowerCase() === this.controlTopic) {
+            if (msg.topic !== undefined && msg.topic.toLowerCase() === node.controlTopic) {
                 switch (msg.payload.toLowerCase()) {
-                    case this.openCmd:
+                    case node.openCmd:
                         state = 'open';
                         break;
-                    case this.closeCmd:
+                    case node.closeCmd:
                         state = 'closed';
                         break;
-                    case this.toggleCmd:
+                    case node.toggleCmd:
                         if (state === 'open') {
                             state = 'closed';
                         } else {
                             state = 'open';
                         }
                         break;
-                    case this.defaultCmd:
-                        state = this.defaultState;
+                    case node.defaultCmd:
+                        state = node.defaultState;
                         break;
                     default:
-                        this.error('Invalid command');
+                        node.error('Invalid command');
                         break;
                 }
                 // Save state
                 context.set('state',state);
                 // Show status                
                 if (state === 'open') {
-                    this.status (openStatus);
+                    node.status (openStatus);
                 } else {
-                    this.status (closedStatus);
+                    node.status (closedStatus);
                 }
-                this.send(null);
+                node.send(null);
             }
             // Transmit message
             else if (state === 'open') {
-                    this.send(msg);
+                    node.send(msg);
                 } else {
-                    this.send(null);
+                    node.send(null);
             }
         });
     }
