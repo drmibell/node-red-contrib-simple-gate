@@ -8,10 +8,6 @@
     "dependencies" : {},
     "keywords"     : [ "gate", "flow control"],
     "homepage"     : "https://github.com/drmibell/node-red-contrib-gate",
-    "repository"    : {
-         "type"    : "git",
-         "url"     : "https://github.com/drmibell/node-red-contrib-gate.git"
-                    },
     "node-red"     : {
         "nodes": {
             "gate": "gate.js"
