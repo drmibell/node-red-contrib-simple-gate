@@ -16,8 +16,8 @@
 module.exports = function(RED) {
     function GateNode(config) {
         RED.nodes.createNode(this,config);
-        var openStatus = {fill:"green",shape:"dot",text:"open"};
-        var closedStatus = {fill:'red',shape:'dot',text:'closed'};
+        const openStatus = {fill:"green",shape:"dot",text:"open"};
+        const closedStatus = {fill:'red',shape:'dot',text:'closed'};
         // Copy configuration items
         this.controlTopic = config.controlTopic.toLowerCase();
         this.openCmd = config.openCmd.toLowerCase();
