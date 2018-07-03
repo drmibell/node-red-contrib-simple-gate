@@ -3,7 +3,7 @@ A Node-RED node for controlling message flow.
 
 ## Install
 
-Run the following command in your node-RED user directory (typically `~/.node-red`):
+Run the following command in your Node-RED user directory (typically `~/.node-red`):
 
     npm install node-red-contrib-gate
 
@@ -22,7 +22,7 @@ When first deployed or after a `default` command, the gate is in the user-select
 The state of the gate is indicated by a status object (dot) and text, either green/`open` or red/`closed`.
 
 ## Examples
-This flow demonstrates the basic operation of the `gate` node and the commands that used to change its state.
+This flow demonstrates the basic operation of the `gate` node and the commands that can be used to change its state.
 
 ```
 [{"id":"4405e5fa.2576d4","type":"gate","z":"5c82144c.a24d2c","name":"gate demo","controlTopic":"control","defaultState":"open","openCmd":"open","closeCmd":"close","toggleCmd":"toggle","defaultCmd":"default","x":310,"y":100,"wires":[["f2454fca.a69808"]]},{"id":"31a144c3.58ab6c","type":"inject","z":"5c82144c.a24d2c","name":"input","topic":"","payload":"","payloadType":"date","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":100,"wires":[["4405e5fa.2576d4"]]},{"id":"286fcfb6.811e08","type":"inject","z":"5c82144c.a24d2c","name":"open","topic":"control","payload":"open","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":160,"wires":[["4405e5fa.2576d4"]]},{"id":"d70ab41.582e248","type":"inject","z":"5c82144c.a24d2c","name":"close","topic":"control","payload":"close","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":200,"wires":[["4405e5fa.2576d4"]]},{"id":"f46bc39.5974c4","type":"inject","z":"5c82144c.a24d2c","name":"toggle","topic":"control","payload":"toggle","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":240,"wires":[["4405e5fa.2576d4"]]},{"id":"b044faad.785378","type":"inject","z":"5c82144c.a24d2c","name":"reset","topic":"control","payload":"default","payloadType":"str","repeat":"","crontab":"","once":false,"onceDelay":0.1,"x":110,"y":280,"wires":[["4405e5fa.2576d4"]]},{"id":"f2454fca.a69808","type":"debug","z":"5c82144c.a24d2c","name":"output","active":true,"tosidebar":true,"console":false,"tostatus":false,"complete":"payload","x":470,"y":100,"wires":[]}]
