@@ -6,7 +6,7 @@
     "author"       : "Michael.I. Bell",
     "e-mail"       : "dr.m.i.bell@gmail.com",
     "dependencies" : {},
-    "keywords"     : [ "gate", "flow control"],
+    "keywords"     : [ "node-red", "gate", "flow control"],
     "homepage"     : "https://github.com/drmibell/node-red-contrib-simple-gate",
     "node-red"     : {
         "nodes": {
