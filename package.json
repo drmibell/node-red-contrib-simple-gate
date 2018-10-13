@@ -13,5 +13,8 @@
             "gate": "gate.js"
         }
     },
-    "repository"   : "https://github.com/drmibell/node-red-contrib-simple-gate.git"
+    "repository"   : {
+        "type" : "git",
+        "url"  : "https://github.com/drmibell/node-red-contrib-simple-gate.git"
+    }
 }
