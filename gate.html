@@ -25,7 +25,8 @@
             openCmd: {value:"open"},
             closeCmd: {value:"close"},
             toggleCmd: {value:"toggle"},
-            defaultCmd: {value:"default"}
+            defaultCmd: {value:"default"},
+            persist: {value:false}
         },
         inputs:1,
         outputs:1,
@@ -52,6 +53,10 @@
             <option value="open"> open</option>
             <option value="closed"> closed</option>
         </select>
+        <label for="node-input-persist" style="width:25%; display:inline"></label>
+        <label for="node-input-persist" style="width:25%; display:inline">
+            <input type="checkbox" id="node-input-persist" style="display:inline-block; width:15px; vertical-align:baseline;">
+        <span>Restore from saved state</span></label>
     </div>
     <br/>
 <!-- commands -->
@@ -92,5 +97,10 @@
     the state of the gate. Control messages can have values representing <code>open</code>,
     <code>close</code>, <code>toggle</code>, and <code>default</code>. </p>
     <p>When first deployed or after a <code>default</code> command, the gate is in the 
-    state defined by <code>Default State</code>.<p>
+    state defined by <code>Default State</code>.</p>
+    <p>After a re-deploy or Node-RED restart, the node will enter the <code>Default State
+    </code> unless the user has selected the <code>Restore from saved state</code> option
+    (checkbox) in the edit dialog and enabled a persistent form of context storage in the Node-RED
+    <code>settings.js</code> file. In that case, the node will attempt to enter the state it was in prior
+    to the re-deploy or restart.</p>
 </script>

@@ -18,6 +18,7 @@ module.exports = function(RED) {
         RED.nodes.createNode(this,config);
         const openStatus = {fill:"green",shape:"dot",text:"open"};
         const closedStatus = {fill:'red',shape:'ring',text:'closed'};
+        var status;
         // Copy configuration items
         this.controlTopic = config.controlTopic.toLowerCase();
         this.openCmd = config.openCmd.toLowerCase();
@@ -25,20 +26,22 @@ module.exports = function(RED) {
         this.toggleCmd = config.toggleCmd.toLowerCase();
         this.defaultCmd = config.defaultCmd.toLowerCase();
         this.defaultState = config.defaultState.toLowerCase();
+        this.persist = config.persist;
         // Save "this" object
         var node = this
-        // Display gate status
-        var state = node.defaultState;
-        if (state === 'open') {
-            node.status (openStatus);
-        } else {
-            node.status (closedStatus);
+        var context = node.context();
+        var persist = node.persist;
+        var state = context.get('state'); //debug
+        if (!persist || typeof state === 'undefined') {
+            state = node.defaultState;
         }
+        context.set('state',state);
+        // Show status
+        status = (state === 'open') ? openStatus:closedStatus;
+        node.status(status);
         // Process inputs
         node.on('input', function(msg) {
-            var context = node.context();
-            // Copy configuration items (moved)
-            var state = context.get('state') || node.defaultState;
+            state = context.get('state');
            // Change state
             if (msg.topic !== undefined && msg.topic.toLowerCase() === node.controlTopic) {
                 switch (msg.payload.toLowerCase()) {
@@ -64,12 +67,9 @@ module.exports = function(RED) {
                 }
                 // Save state
                 context.set('state',state);
-                // Show status                
-                if (state === 'open') {
-                    node.status (openStatus);
-                } else {
-                    node.status (closedStatus);
-                }
+                // Show status
+                status = (state === 'open') ? openStatus:closedStatus;
+                node.status(status);
                 node.send(null);
             }
             // Transmit message
