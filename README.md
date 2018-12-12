@@ -15,11 +15,14 @@ Messages with the user-defined topic `Control Topic` (set when the node is deplo
 
 Control messages can have values representing commands for `open`, `close`, `toggle`, and `default`. The (case-insensitive) strings representing these commands are set by the user when the node is deployed. If a control message is received but not recognized, there is no output or change of state, and the node reports an error.
 
-When first deployed or after a `default` command, the gate is in the user-selected state defined by `Default State`.
+When first deployed or after a `default` command, the gate is in the user-selected state defined by `Default State` (see below regarding persistence).
 
 
 ## Node status
 The state of the gate is indicated by a status object (dot) and text, either green/`open` or red/`closed`.
+
+## State persistence
+By default, the node enters the `Default State` on startup, either when first deployed in the editor, re-deployed as part of a modified flow or entire workspace, or when Node-RED is restarted by the user or by a system service. The user can, however, select the `Restore from saved state` option (checkbox) in the edit dialog. Then, if a persistent form of context storage has been enabled in the Node-RED `settings.js` file, the node will attempt to enter the state last saved in the node context and will use the `Default State` only if no saved state is available.
 
 ## Examples
 This flow demonstrates the basic operation of the `gate` node and the commands that can be used to change its state.
