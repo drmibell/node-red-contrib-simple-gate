@@ -44,33 +44,37 @@ module.exports = function(RED) {
             state = context.get('state');
            // Change state
             if (msg.topic !== undefined && msg.topic.toLowerCase() === node.controlTopic) {
-                switch (msg.payload.toLowerCase()) {
-                    case node.openCmd:
-                        state = 'open';
-                        break;
-                    case node.closeCmd:
-                        state = 'closed';
-                        break;
-                    case node.toggleCmd:
-                        if (state === 'open') {
-                            state = 'closed';
-                        } else {
+                if (typeof msg.payload != 'string'){
+                    node.error('Command must be a string');
+                    } else {
+                    switch (msg.payload.toLowerCase()) {
+                        case node.openCmd:
                             state = 'open';
-                        }
-                        break;
-                    case node.defaultCmd:
-                        state = node.defaultState;
-                        break;
-                    default:
-                        node.error('Invalid command');
-                        break;
+                            break;
+                        case node.closeCmd:
+                            state = 'closed';
+                            break;
+                        case node.toggleCmd:
+                            if (state === 'open') {
+                                state = 'closed';
+                            } else {
+                                state = 'open';
+                            }
+                            break;
+                        case node.defaultCmd:
+                            state = node.defaultState;
+                            break;
+                        default:
+                            node.error('Invalid command');
+                            break;
+                    }
+                    // Save state
+                    context.set('state',state);
+                    // Show status
+                    status = (state === 'open') ? openStatus:closedStatus;
+                    node.status(status);
+                    node.send(null);
                 }
-                // Save state
-                context.set('state',state);
-                // Show status
-                status = (state === 'open') ? openStatus:closedStatus;
-                node.status(status);
-                node.send(null);
             }
             // Transmit message
             else if (state === 'open') {
