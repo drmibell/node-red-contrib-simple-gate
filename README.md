@@ -9,7 +9,7 @@ Run the following command in your Node-RED user directory (typically `~/.node-re
 
 ## Usage
 
-The `gate` node will transmit the input message to its output when in the `open` state and block it when `closed`.
+The `gate` node will transmit the input message to its output when in the `open` state and block it when `closed`. Messages that arrive when the gate is `closed` are discarded. If it is desired to save those messages for future delivery, the `q-gate` node, published as [node-red-contrib-queue-gate](https://flows.nodered.org/node/node-red-contrib-queue-gate) is available.
 
 Messages with the user-defined topic `Control Topic` (set when the node is deployed) are not passed through but are used to control the state of the gate.
 
