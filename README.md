@@ -19,7 +19,7 @@ When first deployed or after a `default` command, the gate is in the user-select
 
 
 ## Node status
-The state of the gate is indicated by a status object (dot) and text, either green/`open` or red/`closed`.
+The state of the gate is indicated by a status object: text and either a green dot (`open`) or a red ring (`closed`).
 
 ## State persistence
 By default, the node enters the `Default State` on startup, either when first deployed in the editor, re-deployed as part of a modified flow or entire workspace, or when Node-RED is restarted by the user or by a system service. The user can, however, select the `Restore from saved state` option (checkbox) in the edit dialog. Then, if a persistent form of context storage has been enabled in the Node-RED `settings.js` file, the node will attempt to enter the state last saved in the node context and will use the `Default State` only if no saved state is available.
