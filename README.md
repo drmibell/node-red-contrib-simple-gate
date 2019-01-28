@@ -3,7 +3,7 @@ A Node-RED node for controlling message flow.
 
 ## Install
 
-Run the following command in your Node-RED user directory (typically `~/.node-red`):
+Either use the Manage Palette selection in the Node-RED Editor menu, or run the following command in your Node-RED user directory (typically `~/.node-red`):
 
     npm install node-red-contrib-simple-gate
 
