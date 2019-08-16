@@ -28,22 +28,22 @@ module.exports = function(RED) {
         this.defaultState = config.defaultState.toLowerCase();
         this.persist = config.persist;
         // Save "this" object
-        var node = this
+        var node = this;
         var context = node.context();
         var persist = node.persist;
-        var state = context.get('state'); //debug
+        var state = context.get('state');
         if (!persist || typeof state === 'undefined') {
             state = node.defaultState;
         }
         context.set('state',state);
-        // Show status
+        // Initialize status display
         status = (state === 'open') ? openStatus:closedStatus;
         node.status(status);
         // Process inputs
         node.on('input', function(msg) {
             state = context.get('state');
            // Change state
-            if (msg.topic !== undefined && msg.topic.toLowerCase() === node.controlTopic) {
+            if (typeof msg.topic === 'string' && msg.topic.toLowerCase() === node.controlTopic) {
                 if (typeof msg.payload != 'string'){
                     node.error('Command must be a string');
                     } else {
