@@ -1,7 +1,0 @@
-[NEW FEATURE] node-red-contrib-simple-gate (version 0.3.0)
-
-In response to a recent request
-https://discourse.nodered.org/t/enable-or-disable-processing-or-flows/23379/6?u=drmibell
-the node has been modified to allow more flexible control messages. In previous versions, the payload of a control message (that is, one with `msg.topic` set to `Control Topic`) was required to be a string. The new version will accept a payload that is a number or boolean. As before, the control message payloads are defined as strings in the node edit dialog, but if a boolean or number is received, it is converted to a string before being tested agains the command definitions.
-
-This version is intended to be backward compatible with the previous one, so users who do not want the new feature should not need to upgrade. Please report bugs or leave suggestions here or on GitHub. https://github.com/drmibell/node-red-contrib-simple-gate/issues
