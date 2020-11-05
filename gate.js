@@ -42,9 +42,13 @@ module.exports = function(RED) {
         // Process inputs
         node.on('input', function(msg) {
             state = context.get('state');
-           // Change state
-            if (typeof msg.topic === 'string' && msg.topic.toLowerCase() === node.controlTopic) {
-               switch (msg.payload.toString().toLowerCase()) {
+            if (
+            typeof msg.topic === 'string' && 
+            msg.topic.toLowerCase() === node.controlTopic
+            ) {     
+                // Change state
+                switch ((typeof msg.payload === 'undefined') ? 
+                null : msg.payload.toString().toLowerCase()) {
                     case node.openCmd:
                         state = 'open';
                         break;
@@ -62,8 +66,7 @@ module.exports = function(RED) {
                         state = node.defaultState;
                         break;
                     default:
-                        node.error('Invalid command');
-                        break;
+                        node.warn('Invalid command ignored');
                 }
                 // Save state
                 context.set('state',state);
