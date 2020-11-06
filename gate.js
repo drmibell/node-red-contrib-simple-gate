@@ -26,6 +26,7 @@ module.exports = function(RED) {
         this.toggleCmd = config.toggleCmd.toLowerCase();
         this.defaultCmd = config.defaultCmd.toLowerCase();
         this.defaultState = config.defaultState.toLowerCase();
+        this.statusCmd = (config.statusCmd || "status").toLowerCase();
         this.persist = config.persist;
         // Save "this" object
         var node = this;
@@ -64,6 +65,8 @@ module.exports = function(RED) {
                         break;
                     case node.defaultCmd:
                         state = node.defaultState;
+                        break;
+                    case node.statusCmd:
                         break;
                     default:
                         node.warn('Invalid command ignored');
