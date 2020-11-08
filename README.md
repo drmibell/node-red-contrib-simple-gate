@@ -13,7 +13,7 @@ The `gate` node will transmit the input message to its output when in the `open`
 
 Messages with the user-defined topic `Control Topic` (set when the node is deployed) are not passed through but are used to control the state of the gate.
 
-Control messages can have values representing commands for `open`, `close`, `toggle`, and `default`. The (case-insensitive) strings representing these commands are set by the user when the node is deployed. Since version 0.3.0, if a control message is received with a payload that is a number or boolean, the payload is converted to a string and then tested against the command definitions. If a command is not recognized, there is no output or change of state, and the node reports an error.
+Control messages can have values representing commands for `open`, `close`, `toggle`, `default`, and `status`. The (case-insensitive) strings representing these commands are set by the user when the node is deployed. The `status` command (added in version 0.4.0) causes the node status to be refreshed, so that it can be caught by a `status` node. Since version 0.3.0, if a control message is received with a payload that is a number or boolean, the payload is converted to a string and then tested against the command definitions. If a command is not recognized, there is no output or change of state, and the node reports a warning.
 
 When first deployed or after a `default` command, the gate is in the user-selected state defined by `Default State` (see below regarding persistence).
 
