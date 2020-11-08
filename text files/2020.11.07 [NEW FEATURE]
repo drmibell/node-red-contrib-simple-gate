@@ -1,0 +1,10 @@
+[NEW FEATURE] node-red-contrib-simple-gate (version 0.4.0)
+
+In response to a recent discussion
+https://discourse.nodered.org/t/status-node-refresh-on-startup/35360
+a new command has been added that causes the node status to be refreshed. This will 
+cause a connected `status` node to detect and respond to the new status.
+
+This version also corrects a bug that caused an error when a control message with an undefined payload was received. Such messages are now treated as invalid commands. The node now posts a warning for all invalid commands, rather than an error as in previous versions.
+
+Version 0.4.0 is intended to be backward compatible with the previous one, so users who do not want the new feature should not need to upgrade. Please report bugs or leave suggestions here or on GitHub. https://github.com/drmibell/node-red-contrib-simple-gate/issues
