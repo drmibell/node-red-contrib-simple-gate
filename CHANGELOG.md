@@ -2,6 +2,8 @@
     - Select context store.
     - Handle null control payload.
     - Add link to version history in README.
+    - Examples include default context store.
+    - Show version number in edit dialog.
 - 0.4.0 (2020-11-08)
 - 0.3.1 (2020-04-15)
 - 0.3.0 (2020-04-05)
