@@ -27,7 +27,8 @@
             toggleCmd: {value:"toggle"},
             defaultCmd: {value:"default"},
             statusCmd: {value:"status"},
-            persist: {value:false}
+            persist: {value:false},
+            storeName: {value:RED.settings.context.default}
         },
         inputs:1,
         outputs:1,
@@ -37,7 +38,22 @@
         },
         labelStyle: function() {
             return this.name?"node_label_italic":"";
-        }
+        },
+
+        oneditprepare: function() {
+            var node = this
+            RED.settings.context.stores.forEach(add)    // list context stores
+            function add(item){
+                $('#node-input-storeName').append(`<option value="${item}">${item}</option>`)
+            }
+            $('#node-input-storeName').val(node.storeName)  // disable if not checked
+            $("#node-input-persist").on("change", function(e) { 
+                $("#node-input-storeName").prop("disabled", !$(this).prop("checked"))
+            });
+            const version = RED.nodes.registry.getModule("node-red-contrib-simple-gate").version
+            $('#node-version').append(` ${version}`)
+
+        }        
     });
 </script>
 
@@ -54,10 +70,13 @@
             <option value="open"> open</option>
             <option value="closed"> closed</option>
         </select>
-        <span>&emsp;</span>
+    </div>
+    <div class="form-row">
         <label for="node-input-persist" style="width:25%; display:inline">
             <input type="checkbox" id="node-input-persist" style="display:inline-block; width:15px; vertical-align:baseline;">
-        <span>Restore from saved state</span></label>
+        <span>Restore from state saved in</span></label>
+        <select type="text" id="node-input-storeName" style="width:50%"> </select>
+        <i class="fa fa-database"></i>
     </div>
     <br/>
 <!-- commands -->
@@ -86,13 +105,15 @@
 <!-- statusCmd --> 
     <div class="form-row">
         <label for="node-input-statusCmd"><i class="fa fa-info"></i> Status</label>
-        <input type="text" id="node-input-statusCmd" placeholder="status" style="width:20%">
+        <input type="text" id="node-input-statusCmd" placeholder="status">
     </div>
     <br/>
-    <!-- Name -->  
+    <!-- Name & Version-->  
     <div class="form-row">
         <label for="node-input-name"><i class="fa fa-tag"></i> Name</label>
-        <input type="text" id="node-input-name" placeholder="Name">
+        <input type="text" id="node-input-name" placeholder="Name" style="width:50%">
+        <span>&emsp;&emsp;</span>
+        <label id="node-version" style="width:auto" >Version</label>
     </div>
 </script>
 
@@ -101,12 +122,14 @@
     <code>closed</code>. </p>
     <p>Messages with the topic <code>Control Topic</code> are control messages, which set 
     the state of the gate. Control messages can have values representing <code>open</code>,
-    <code>close</code>, <code>toggle</code>, <code>default</code>, and <code>statis</code>. </p>
+    <code>close</code>, <code>toggle</code>, <code>default</code>, and <code>status</code>. </p>
     <p>When first deployed or after a <code>default</code> command, the gate is in the 
     state defined by <code>Default State</code>.</p>
-    <p>After a re-deploy or Node-RED restart, the node will enter the <code>Default State
-    </code> unless the user has selected the <code>Restore from saved state</code> option
-    (checkbox) in the edit dialog and enabled a persistent form of context storage in the Node-RED
-    <code>settings.js</code> file. In that case, the node will attempt to enter the state it was in prior
-    to the re-deploy or restart.</p>
+    <p>When first deployed or after a <code>default</code> command, the gate is in the
+    state defined by <code>Default State</code>.<p>
+    <p>After a re-deploy or Node-RED restart, the node will enter the <code>Default State</code>,
+    unless the user has selected the <code>Restore from state saved in</code> option
+    (checkbox) in the edit dialog and has chosen a persistent form of context storage in the 
+    adjacent dropdown list. In that case, the node will enter the state it was in 
+    prior to the re-deploy or restart.</p>
 </script>
