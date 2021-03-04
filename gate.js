@@ -43,13 +43,17 @@ module.exports = function(RED) {
         // Process inputs
         node.on('input', function(msg) {
             state = context.get('state');
-            if (
-            typeof msg.topic === 'string' && 
-            msg.topic.toLowerCase() === node.controlTopic
-            ) {     
+            if (typeof msg.topic === 'string' && 
+                msg.topic.toLowerCase() === node.controlTopic) {     
                 // Change state
+                if (typeof msg.payload === 'undefined' || msg.payload === null) {
+                    msg.payload = '';
+                }
+/*
                 switch ((typeof msg.payload === 'undefined') ? 
                 null : msg.payload.toString().toLowerCase()) {
+*/
+                switch (msg.payload.toString().toLowerCase()) {
                     case node.openCmd:
                         state = 'open';
                         break;
