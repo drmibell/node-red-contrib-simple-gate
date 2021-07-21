@@ -28,31 +28,29 @@ module.exports = function(RED) {
         this.defaultState = config.defaultState.toLowerCase();
         this.statusCmd = (config.statusCmd || "status").toLowerCase();
         this.persist = config.persist;
+        this.storeName = config.storeName;
         // Save "this" object
         var node = this;
         var context = node.context();
         var persist = node.persist;
-        var state = context.get('state');
+        var storeName = node.storeName;
+        var state = context.get('state',storeName);
         if (!persist || typeof state === 'undefined') {
             state = node.defaultState;
         }
-        context.set('state',state);
+        context.set('state',state,storeName);
         // Initialize status display
         status = (state === 'open') ? openStatus:closedStatus;
         node.status(status);
         // Process inputs
         node.on('input', function(msg) {
-            state = context.get('state');
+            state = context.get('state',storeName);
             if (typeof msg.topic === 'string' && 
                 msg.topic.toLowerCase() === node.controlTopic) {     
                 // Change state
                 if (typeof msg.payload === 'undefined' || msg.payload === null) {
                     msg.payload = '';
                 }
-/*
-                switch ((typeof msg.payload === 'undefined') ? 
-                null : msg.payload.toString().toLowerCase()) {
-*/
                 switch (msg.payload.toString().toLowerCase()) {
                     case node.openCmd:
                         state = 'open';
@@ -76,7 +74,7 @@ module.exports = function(RED) {
                         node.warn('Invalid command ignored');
                 }
                 // Save state
-                context.set('state',state);
+                context.set('state',state,storeName);
                 // Show status
                 status = (state === 'open') ? openStatus:closedStatus;
                 node.status(status);
