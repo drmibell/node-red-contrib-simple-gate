@@ -1,3 +1,6 @@
+- 0.5.1 (2021-07-21) 
+    - Fix JS file to use storeName
+    - Fix error loading in NR version 0.18
 - 0.5.0 (2021-03-04)
     - Select context store.
     - Handle null control payload.
