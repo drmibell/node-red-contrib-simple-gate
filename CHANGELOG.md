@@ -1,3 +1,4 @@
+- 0.5.2 (2021-09-29) Allow async context access.
 - 0.5.1 (2021-07-21) 
     - Fix JS file to use storeName
     - Fix error loading in NR version 0.18
