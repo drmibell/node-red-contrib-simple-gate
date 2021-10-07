@@ -34,59 +34,68 @@ module.exports = function(RED) {
         var context = node.context();
         var persist = node.persist;
         var storeName = node.storeName;
-        var state = context.get('state',storeName);
-        if (!persist || typeof state === 'undefined') {
-            state = node.defaultState;
-        }
-        context.set('state',state,storeName);
-        // Initialize status display
-        status = (state === 'open') ? openStatus:closedStatus;
-        node.status(status);
-        // Process inputs
+        
+        context.get('state',storeName,function(err,state){
+            if (err) {
+                node.error('startup error reading from context store: ' + storeName)
+            } else {
+                if (!persist || typeof state === 'undefined') {
+                    state = node.defaultState;
+                }
+                // Initialize status display
+                status = (state === 'open') ? openStatus:closedStatus
+                node.status(status)
+                context.set('state',state,storeName,function(err){
+                    if (err) {
+                        node.error('startup error writing to context store: ' + storeName)
+                    }
+                })
+            }
+        })
+
         node.on('input', function(msg) {
-            state = context.get('state',storeName);
-            if (typeof msg.topic === 'string' && 
-                msg.topic.toLowerCase() === node.controlTopic) {     
-                // Change state
-                if (typeof msg.payload === 'undefined' || msg.payload === null) {
-                    msg.payload = '';
-                }
-                switch (msg.payload.toString().toLowerCase()) {
-                    case node.openCmd:
-                        state = 'open';
-                        break;
-                    case node.closeCmd:
-                        state = 'closed';
-                        break;
-                    case node.toggleCmd:
-                        if (state === 'open') {
-                            state = 'closed';
-                        } else {
+            context.get('state',storeName,function(err,state) {
+                if (err) {
+                    node.error('message error reading from context store: ' + storeName)
+                } else if (typeof msg.topic === 'string' && 
+                        msg.topic.toLowerCase() === node.controlTopic) { // change state
+                    if (typeof msg.payload === 'undefined' || msg.payload === null) {
+                        msg.payload = '';
+                    }
+                    switch (msg.payload.toString().toLowerCase()) {
+                        case node.openCmd:
                             state = 'open';
+                            break;
+                        case node.closeCmd:
+                            state = 'closed';
+                            break;
+                        case node.toggleCmd:
+                            if (state === 'open') {
+                                state = 'closed';
+                            } else {
+                                state = 'open';
+                            }
+                            break;
+                        case node.defaultCmd:
+                            state = node.defaultState;
+                            break;
+                        case node.statusCmd:
+                            break;
+                        default:
+                            node.warn('Invalid command ignored');
+                    }
+                    status = (state === 'open') ? openStatus:closedStatus;
+                    node.status(status);
+                    context.set('state',state,storeName,function(err){
+                        if (err){
+                            node.error('message error writing to context store: ' + storeName)
                         }
-                        break;
-                    case node.defaultCmd:
-                        state = node.defaultState;
-                        break;
-                    case node.statusCmd:
-                        break;
-                    default:
-                        node.warn('Invalid command ignored');
-                }
-                // Save state
-                context.set('state',state,storeName);
-                // Show status
-                status = (state === 'open') ? openStatus:closedStatus;
-                node.status(status);
-                node.send(null);
-            }
-            // Transmit message
-            else if (state === 'open') {
-                    node.send(msg);
-                } else {
-                    node.send(null);
-            }
-        });
+                    });
+                } else if (state === 'open') {  // transmit message
+                        node.send(msg);
+                } 
+            })
+        })
     }
     RED.nodes.registerType("gate",GateNode);
 }
